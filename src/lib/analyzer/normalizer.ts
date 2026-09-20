@@ -24,10 +24,9 @@ export function normalizeReceipt(raw: RawReceipt): NormalizedReceipt {
     ? (rawType as ReceiptType)
     : 'note';
 
-  let dateObj = new Date(raw.timestamp);
-  if (Number.isNaN(dateObj.getTime())) {
-    dateObj = new Date('2026-01-01T00:00:00Z');
-  }
+  if (!raw.id || !String(raw.id).trim()) throw new Error('Receipt id is required.');
+  const dateObj = new Date(raw.timestamp);
+  if (Number.isNaN(dateObj.getTime())) throw new Error('Invalid receipt timestamp.');
 
   const dateFormatted = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const timeFormatted = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -40,7 +39,7 @@ export function normalizeReceipt(raw: RawReceipt): NormalizedReceipt {
     : [];
 
   return {
-    id: raw.id || 'REC-' + Math.random().toString(36).slice(2, 9),
+    id: String(raw.id).trim(),
     type, title, timestamp: dateObj.toISOString(), dateObj, dateFormatted, timeFormatted,
     location, description, metadata, tags
   };
