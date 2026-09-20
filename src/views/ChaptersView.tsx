@@ -107,9 +107,11 @@ export const ChaptersView: React.FC<ChaptersViewProps> = ({
               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
                 {activeChapter.sequenceFlow.map((step, idx) => (
                   <React.Fragment key={idx}>
-                    <div
+                    <button
+                      type="button"
                       onClick={() => onSelectReceipt(step.receiptId)}
-                      className="p-3.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800/90 border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer flex-1 group"
+                      aria-label={'Open evidence receipt ' + step.label}
+                      className="p-3.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800/90 border border-zinc-800 hover:border-zinc-700 transition-all cursor-pointer flex-1 group text-left"
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <span className={`p-1 rounded ${getTypeBadgeClass(step.type)}`}>
@@ -146,10 +148,12 @@ export const ChaptersView: React.FC<ChaptersViewProps> = ({
 
           <div className="space-y-3">
             {activeChapter.receipts.map(r => (
-              <div
+              <button
+                type="button"
                 key={r.id}
                 onClick={() => onSelectReceipt(r.id)}
-                className="p-4 rounded-xl bg-[#121217] hover:bg-[#16161e] border border-zinc-800/80 hover:border-zinc-700/80 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                aria-label={'Open receipt ' + r.title}
+                className="w-full text-left p-4 rounded-xl bg-[#121217] hover:bg-[#16161e] border border-zinc-800/80 hover:border-zinc-700/80 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
               >
                 <div className="flex items-start sm:items-center gap-3 min-w-0">
                   <span className={`p-2 rounded-lg shrink-0 ${getTypeBadgeClass(r.type)}`}>
