@@ -28,6 +28,17 @@ export function sanitizeMetadata(metadata: Record<string, any>): Record<string, 
   return sanitizeValue(metadata) as Record<string, any>;
 }
 
+export function sanitizeRawReceipt(raw: RawReceipt): RawReceipt {
+  const sanitized = Object.fromEntries(
+    Object.entries(raw)
+      .filter(([key]) => !SENSITIVE_KEYS.has(key.toLowerCase()))
+      .map(([key, value]) => [key, key.toLowerCase() === 'metadata' && value && typeof value === 'object'
+        ? sanitizeMetadata(value as Record<string, any>)
+        : value])
+  );
+  return sanitized as RawReceipt;
+}
+
 export function normalizeReceipt(raw: RawReceipt): NormalizedReceipt {
   const rawType = (raw.type || '').toLowerCase().trim();
   const type: ReceiptType = VALID_TYPES.has(rawType as ReceiptType)
