@@ -11,9 +11,9 @@
     <img src="https://img.shields.io/badge/GitHub-LIFE%2F%2FFORENSICS-181717?style=for-the-badge&logo=github" />
   </a>
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" />
-  <img src="https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss" />
 </p>
 
 ---
@@ -553,6 +553,26 @@ The deterministic investigation query engine maps questions such as change-over-
 
 ---
 
+## Application Architecture
+
+```text
+React UI
+   ↓
+AppShell + domain hooks
+   ↓
+Dataset service / validation
+   ↓
+Deterministic analysis orchestrator
+   ↓
+Normalizer • correlation • baseline • query engines
+   ↓
+Evidence + confidence model
+```
+
+The production shell lazy-loads view modules, keeps dataset loading in a dedicated hook, isolates rendering failures with an error boundary, and supports validated user-dataset replacement without changing the analysis contract.
+
+---
+
 # Project Structure
 
 ```text
@@ -631,6 +651,14 @@ npm run dev
 ```
 
 Open the Vite URL displayed in the terminal.
+
+---
+
+# Security & Reliability
+
+The application fails closed on invalid receipt timestamps instead of fabricating dates, uses deterministic IDs from source records, strips sensitive metadata during normalization, bounds uploaded JSON to 10 MB / 50,000 records, and keeps the graph adjacency index consistent with deduplicated edges.
+
+Automated repository checks cover dataset schema, privacy deny-lists, upload constraints, lazy loading, query/baseline modules and error-boundary wiring.
 
 ---
 
@@ -816,6 +844,7 @@ Confidence represents the strength of the implemented evidence model and is not 
 * [ ] Semantic event search
 * [ ] Advanced change-point detection
 * [ ] Improved anomaly scoring
+* [x] Personal-history baseline comparison
 * [ ] Advanced personal baselines
 
 ## Privacy
