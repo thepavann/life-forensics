@@ -246,10 +246,12 @@ export const ReceiptsView: React.FC<ReceiptsViewProps> = ({
           {paginatedReceipts.map((r: NormalizedReceipt) => {
             const connsCount = data.adjacencyMap.get(r.id)?.length || 0;
             return (
-              <div
+              <button
+                type="button"
                 key={r.id}
                 onClick={() => onSelectReceipt(r.id)}
-                className="p-5 rounded-2xl bg-[#121217] hover:bg-[#16161f] border border-zinc-800/80 hover:border-zinc-700/80 transition-all cursor-pointer flex flex-col justify-between space-y-3 group"
+                aria-label={'Open receipt ' + r.title}
+                className="w-full text-left p-5 rounded-2xl bg-[#121217] hover:bg-[#16161f] border border-zinc-800/80 hover:border-zinc-700/80 transition-all cursor-pointer flex flex-col justify-between space-y-3 group"
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
