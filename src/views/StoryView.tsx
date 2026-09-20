@@ -24,7 +24,6 @@ interface StoryViewProps {
 export const StoryView: React.FC<StoryViewProps> = ({
   data,
   onSelectReceipt,
-  onOpenChapter,
   onOpenAtlasWithFocus,
   onFindMissed,
   onSwitchTab
