@@ -1,5 +1,4 @@
 // src/lib/analyzer/index.ts
-import rawData from '../../data/raw_receipts.json';
 import type { RawReceipt, NormalizedReceipt, Connection, Chapter, Discovery, LifeStatistics } from '../../types/receipt';
 import { normalizeAllReceipts } from './normalizer';
 import { computeConnections } from './connections';
@@ -19,7 +18,7 @@ export interface ForensicsDataset {
   statistics: LifeStatistics;
 }
 
-let cachedDefaultDataset: ForensicsDataset | null = null;
+let cachedDefaultDataset: Promise<ForensicsDataset> | null = null;
 
 export function analyzeDataset(rawInput: RawReceipt[]): ForensicsDataset {
   const receipts = normalizeAllReceipts(rawInput);
@@ -53,12 +52,21 @@ export function analyzeDataset(rawInput: RawReceipt[]): ForensicsDataset {
   };
 }
 
-export function getForensicsData(customRaw?: RawReceipt[]): ForensicsDataset {
+/**
+ * The production dataset is loaded as a separate Vite chunk instead of being
+ * embedded in the initial application module. This keeps the first paint small
+ * while preserving the deterministic real-data analysis pipeline.
+ */
+export function getForensicsData(customRaw?: RawReceipt[]): Promise<ForensicsDataset> {
   if (customRaw) {
-    return analyzeDataset(customRaw);
+    return Promise.resolve(analyzeDataset(customRaw));
   }
+
   if (!cachedDefaultDataset) {
-    cachedDefaultDataset = analyzeDataset(rawData as RawReceipt[]);
+    cachedDefaultDataset = import('../../data/raw_receipts.json').then(module =>
+      analyzeDataset(module.default as RawReceipt[])
+    );
   }
+
   return cachedDefaultDataset;
 }
