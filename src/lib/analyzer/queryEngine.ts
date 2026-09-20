@@ -1,5 +1,4 @@
-import type { Discovery, NormalizedReceipt, LifeStatistics } from '../../types/receipt';
-import type { PersonalBaseline } from './baseline';
+import type { Discovery, NormalizedReceipt, LifeStatistics, PersonalBaselineSummary } from '../../types/receipt';
 
 export interface InvestigationAnswer {
   intent: 'change' | 'unusual' | 'overlap' | 'explain' | 'search';
@@ -14,7 +13,7 @@ export function answerInvestigationQuery(
   receipts: NormalizedReceipt[],
   statistics: LifeStatistics,
   discoveries: Discovery[],
-  baseline: PersonalBaseline | null
+  baseline: PersonalBaselineSummary | null
 ): InvestigationAnswer | null {
   const normalized = query.trim().toLowerCase();
   if (!normalized) return null;
