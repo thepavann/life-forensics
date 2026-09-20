@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "verify": "node scripts/verify_app.js"
+    "verify": "node scripts/verify_app.js",
+    "test": "node scripts/test_app.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
