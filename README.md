@@ -1,49 +1,105 @@
-# React + TypeScript + Vite
+# LIFE//FORENSICS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+### Explainable Behavioral Intelligence from Fragmented Personal Data
 
-Currently, two official plugins are available:
+> **Fragmented traces → Privacy filtering → Behavioral correlation → Explainable discoveries → Personal Life Graph**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**LIFE//FORENSICS** is a privacy-first behavioral intelligence platform that reconstructs meaningful patterns from fragmented personal datasets.
 
-## Expanding the Oxlint configuration
+Modern personal data is scattered across music platforms, transactions, household records, locations, timestamps, and other digital traces. Most systems analyze these sources independently.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+LIFE//FORENSICS takes a different approach.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+It brings heterogeneous data sources into a common event model, removes sensitive identifying information, analyzes temporal and behavioral relationships, detects recurring patterns and anomaly candidates, and presents the results through an interactive investigation interface.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The goal is not simply to visualize data.
 
+> **The goal is to reconstruct the story hidden inside the data — while keeping the reasoning explainable.**
 
-## Real dataset integration
+---
 
-This build uses the three datasets supplied with the project:
+# 🎯 Problem
 
-- **Daily Household Transactions** — 2,461 source rows; 1,303 rows with usable timestamps mapped to purchase receipts.
-- **Augmented IndiaTransactMultiFacet2024** — 10,267 source rows; 9,417 rows with usable timestamps mapped to purchase receipts.
-- **spotify_history** — 149,860 listening records. To keep the interactive graph performant, the frontend uses daily summaries of the top 3 artists by play count (7,413 derived music receipts), retaining real track, artist, play-count and listening-time values.
+Personal data is fragmented across multiple platforms and formats.
 
-The resulting archive contains **18,133 normalized receipts**. Personally identifying/payment fields from the India transaction dataset (card numbers, names, street addresses, date of birth, customer IDs and coordinates) are intentionally excluded from the frontend dataset.
+A single dataset may contain:
 
-See `src/data/dataset_manifest.json` for the transformation manifest.
+- timestamps
+- locations
+- transactions
+- music activity
+- categories
+- behavioral signals
+- repeated events
 
+But these signals are usually analyzed independently.
 
-## Hackathon demo
-See `HACKATHON_DEMO.md` for the pitch flow, technical story, privacy claims, and judge walkthrough.
+This creates several problems:
+
+- Important relationships between datasets remain hidden.
+- Long-term behavioral changes are difficult to identify.
+- Raw data is difficult for humans to interpret.
+- Generic anomaly detection can ignore a person's historical baseline.
+- Sensitive information may be exposed unnecessarily.
+- Black-box AI conclusions are difficult to trust.
+
+---
+
+# 💡 Our Solution
+
+LIFE//FORENSICS creates a unified behavioral analysis pipeline.
+
+```text
+┌──────────────────────────────┐
+│        DATA SOURCES          │
+│                              │
+│ Spotify • Transactions       │
+│ Household • Other Signals    │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│       PRIVACY FILTER         │
+│                              │
+│ Remove unnecessary PII       │
+│ Keep analytical signals      │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│       NORMALIZATION           │
+│                              │
+│ Time • Source • Entity       │
+│ Category • Location          │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│     CORRELATION ENGINE       │
+│                              │
+│ Temporal • Entity • Location │
+│ Cross-source relationships   │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│      FORENSIC ENGINE         │
+│                              │
+│ Patterns • Baselines         │
+│ Anomaly Candidates           │
+│ Behavioral Changes           │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│     EXPLAINABLE OUTPUT       │
+│                              │
+│ Evidence • Confidence        │
+│ Reasoning • Limitations      │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│       LIFE//FORENSICS        │
+│                              │
+│ Timeline • Atlas • Life Graph│
+│ Investigation Console        │
+└──────────────────────────────┘
