@@ -5,6 +5,7 @@ import { computeConnections } from './connections';
 import { discoverChapters } from './chapters';
 import { discoverPatterns } from './insights';
 import { computeStatistics } from './statistics';
+import { computePersonalBaseline } from './baseline';
 
 export interface ForensicsDataset {
   raw: RawReceipt[];
@@ -16,6 +17,7 @@ export interface ForensicsDataset {
   chapterMap: Map<string, Chapter>;
   discoveries: Discovery[];
   statistics: LifeStatistics;
+  baseline: ReturnType<typeof computePersonalBaseline>;
 }
 
 let cachedDefaultDataset: Promise<ForensicsDataset> | null = null;
@@ -38,6 +40,7 @@ export function analyzeDataset(rawInput: RawReceipt[]): ForensicsDataset {
 
   const discoveries = discoverPatterns(receipts, connections);
   const statistics = computeStatistics(receipts, chapters, connections);
+  const baseline = computePersonalBaseline(receipts);
 
   return {
     raw: rawInput,
@@ -48,7 +51,8 @@ export function analyzeDataset(rawInput: RawReceipt[]): ForensicsDataset {
     chapters,
     chapterMap,
     discoveries,
-    statistics
+    statistics,
+    baseline
   };
 }
 
