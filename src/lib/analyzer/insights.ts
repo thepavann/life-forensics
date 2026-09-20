@@ -21,9 +21,12 @@ export function discoverPatterns(
 
   const confidenceLabel = (score: number) => score >= 90 ? 'HIGH' : score >= 75 ? 'MEDIUM' : 'LOW';
   const add = (d: Omit<Discovery, 'confidence' | 'confidenceLabel'>, score: number) => {
-    d.confidence = Math.max(1, Math.min(99, Math.round(score)));
-    d.confidenceLabel = confidenceLabel(d.confidence);
-    discoveries.push(d);
+    const discovery: Discovery = {
+      ...d,
+      confidence: Math.max(1, Math.min(99, Math.round(score))),
+      confidenceLabel: confidenceLabel(score)
+    };
+    discoveries.push(discovery);
   };
 
   // 1. Cross-source convergence: the most defensible "forensic" pattern in this demo.
