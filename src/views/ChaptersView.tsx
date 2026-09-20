@@ -124,7 +124,7 @@ export const ChaptersView: React.FC<ChaptersViewProps> = ({
                       <div className="text-xs font-medium text-white group-hover:text-amber-300 transition-colors line-clamp-1">
                         {step.label}
                       </div>
-                    </div>
+                    </button>
 
                     {idx < activeChapter.sequenceFlow.length - 1 && (
                       <div className="flex items-center justify-center text-zinc-600 shrink-0">
@@ -179,7 +179,7 @@ export const ChaptersView: React.FC<ChaptersViewProps> = ({
                   <span className="font-mono">{r.dateFormatted}</span>
                   <ArrowRight size={14} className="text-zinc-600 group-hover:text-white transition-colors" />
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </section>
