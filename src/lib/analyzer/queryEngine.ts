@@ -1,5 +1,4 @@
-import type { Discovery, NormalizedReceipt } from '../../types/receipt';
-import type { LifeStatistics } from './statistics';
+import type { Discovery, NormalizedReceipt, LifeStatistics } from '../../types/receipt';
 import type { PersonalBaseline } from './baseline';
 
 export interface InvestigationAnswer {
