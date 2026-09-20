@@ -1,24 +1,11 @@
 // src/lib/analyzer/index.ts
-import type { RawReceipt, NormalizedReceipt, Connection, Chapter, Discovery, LifeStatistics } from '../../types/receipt';
+import type { RawReceipt, NormalizedReceipt, Connection, Chapter, Discovery, LifeStatistics, ForensicsDataset } from '../../types/receipt';
 import { normalizeAllReceipts } from './normalizer';
 import { computeConnections } from './connections';
 import { discoverChapters } from './chapters';
 import { discoverPatterns } from './insights';
 import { computeStatistics } from './statistics';
 import { computePersonalBaseline } from './baseline';
-
-export interface ForensicsDataset {
-  raw: RawReceipt[];
-  receipts: NormalizedReceipt[];
-  receiptMap: Map<string, NormalizedReceipt>;
-  connections: Connection[];
-  adjacencyMap: Map<string, Connection[]>;
-  chapters: Chapter[];
-  chapterMap: Map<string, Chapter>;
-  discoveries: Discovery[];
-  statistics: LifeStatistics;
-  baseline: ReturnType<typeof computePersonalBaseline>;
-}
 
 let cachedDefaultDataset: Promise<ForensicsDataset> | null = null;
 
