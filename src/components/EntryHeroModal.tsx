@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDownRight, ArrowRight, CalendarDays, MapPin, ReceiptText, Sparkles } from 'lucide-react';
+import { ArrowDownRight, ArrowRight, CalendarDays, MapPin, ReceiptText } from 'lucide-react';
 import type { LifeStatistics } from '../types/receipt';
 
 interface EntryHeroModalProps {
