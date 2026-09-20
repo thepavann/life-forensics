@@ -92,6 +92,15 @@ export function computeConnections(receipts: NormalizedReceipt[]): ScoredConnect
   }
 
   const finalConnections = Array.from(unique.values());
-  adjacencyMap.forEach(conns => conns.sort((a, b) => b.score - a.score));
-  return { connections: finalConnections, adjacencyMap };
+
+  // Rebuild adjacency from the deduplicated edge set so the graph and edge list
+  // always describe the same relationship model.
+  const finalAdjacencyMap = new Map<string, Connection[]>();
+  receipts.forEach(r => finalAdjacencyMap.set(r.id, []));
+  for (const conn of finalConnections) {
+    finalAdjacencyMap.get(conn.sourceId)?.push(conn);
+    finalAdjacencyMap.get(conn.targetId)?.push({ ...conn, sourceId: conn.targetId, targetId: conn.sourceId });
+  }
+  finalAdjacencyMap.forEach(conns => conns.sort((a, b) => b.score - a.score));
+  return { connections: finalConnections, adjacencyMap: finalAdjacencyMap };
 }
