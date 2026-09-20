@@ -12,10 +12,20 @@ const SENSITIVE_KEYS = new Set([
   'email', 'phone', 'phone_number', 'ssn'
 ]);
 
-function sanitizeMetadata(metadata: Record<string, any>): Record<string, any> {
-  return Object.fromEntries(
-    Object.entries(metadata).filter(([key]) => !SENSITIVE_KEYS.has(key.toLowerCase()))
-  );
+function sanitizeValue(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sanitizeValue);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .filter(([key]) => !SENSITIVE_KEYS.has(key.toLowerCase()))
+        .map(([key, nested]) => [key, sanitizeValue(nested)])
+    );
+  }
+  return value;
+}
+
+export function sanitizeMetadata(metadata: Record<string, any>): Record<string, any> {
+  return sanitizeValue(metadata) as Record<string, any>;
 }
 
 export function normalizeReceipt(raw: RawReceipt): NormalizedReceipt {
