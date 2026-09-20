@@ -1,6 +1,6 @@
 // src/lib/analyzer/index.ts
 import type { RawReceipt, NormalizedReceipt, Connection, Chapter, ForensicsDataset } from '../../types/receipt';
-import { normalizeAllReceipts } from './normalizer';
+import { normalizeAllReceipts, sanitizeRawReceipt } from './normalizer';
 import { computeConnections } from './connections';
 import { discoverChapters } from './chapters';
 import { discoverPatterns } from './insights';
@@ -30,7 +30,7 @@ export function analyzeDataset(rawInput: RawReceipt[]): ForensicsDataset {
   const baseline = computePersonalBaseline(receipts);
 
   return {
-    raw: rawInput,
+    raw: rawInput.map(sanitizeRawReceipt),
     receipts,
     receiptMap,
     connections,
