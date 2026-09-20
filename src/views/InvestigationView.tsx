@@ -3,7 +3,7 @@ import {
   Activity, BrainCircuit, Database, Fingerprint, GitBranch, LockKeyhole,
   Search, ShieldCheck, Sparkles, Timeline, Zap
 } from 'lucide-react';
-import type { ForensicsDataset } from '../lib/analyzer';
+import type { ForensicsDataset } from '../types/receipt';
 import { answerInvestigationQuery } from '../lib/analyzer/queryEngine';
 
 interface InvestigationViewProps {
@@ -25,9 +25,7 @@ function formatHour(hour: number) {
 export const InvestigationView: React.FC<InvestigationViewProps> = ({ data, onSelectReceipt }) => {
   const { statistics, discoveries, baseline } = data;
   const [query, setQuery] = useState('');
-  const maxHour = Math.max(...statistics.hourlyCounts.map(x => x.count), 1);
   const maxMonth = Math.max(...statistics.monthlyCounts.map(x => x.count), 1);
-  const topDay = statistics.weekdayCounts[0];
   const sourceTotal = statistics.sourceStats.reduce((a, b) => a + b.count, 0) || 1;
   const recentMonths = statistics.monthlyCounts.slice(-24);
 
