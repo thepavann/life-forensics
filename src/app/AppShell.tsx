@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { getForensicsData, type ForensicsDataset } from '../lib/analyzer';
 import { useForensicsData } from '../hooks/useForensicsData';
 import type { RawReceipt } from '../types/receipt';
 import { Navbar, type ActiveTab } from '../components/Navbar';
@@ -25,7 +24,7 @@ function ViewFallback() {
 }
 
 export function AppShell() {
-  const { data, error, isLoading, load } = useForensicsData();
+  const { data, error, load } = useForensicsData();
   const [activeTab, setActiveTab] = useState<ActiveTab>('story');
   const [selectedReceiptId, setSelectedReceiptId] = useState<string | null>(null);
   const [activeChapterId, setActiveChapterId] = useState<string | null>(null);
