@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { getForensicsData, type ForensicsDataset } from '../lib/analyzer';
 import { useForensicsData } from '../hooks/useForensicsData';
+import type { RawReceipt } from '../types/receipt';
 import { Navbar, type ActiveTab } from '../components/Navbar';
 import { EntryHeroModal } from '../components/EntryHeroModal';
 import { ReceiptDetailModal } from '../components/ReceiptDetailModal';
@@ -88,7 +89,7 @@ export function AppShell() {
     handleTabChange('atlas');
   };
 
-  const handleDatasetLoaded = async (raw: Parameters<typeof getForensicsData>[0]) => {
+  const handleDatasetLoaded = async (raw: RawReceipt[]) => {
     setUploadLoading(true);
     await load(raw);
     setUploadLoading(false);
