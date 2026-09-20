@@ -20,6 +20,8 @@ interface ParsedPreview {
 }
 
 const VALID_TYPES = ['music','movie','place','purchase','photo','message','search','event','note'];
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_RECORDS = 50000;
 
 const TYPE_COLORS: Record<string, string> = {
   music: '#34d399', movie: '#818cf8', place: '#fbbf24',
@@ -36,8 +38,10 @@ function parseRawFile(text: string): ParsedPreview {
   }
   const records: RawReceipt[] = Array.isArray(parsed) ? (parsed as RawReceipt[]) : [];
   if (records.length === 0) throw new Error('No records found. Expected a JSON array of receipt objects.');
-  for (const r of records.slice(0, 5)) {
-    if (!r.id || !r.type || !r.timestamp) throw new Error('Records must have id, type, and timestamp fields.');
+  if (records.length > MAX_RECORDS) throw new Error('Dataset is too large. Maximum supported size is 50,000 records.');
+  for (const r of records) {
+    if (!r || typeof r !== 'object' || !r.id || !r.type || !r.timestamp) throw new Error('Every record must have id, type, and timestamp fields.');
+    if (Number.isNaN(new Date(String(r.timestamp)).getTime())) throw new Error('Every record must contain a valid timestamp.');
   }
   const typeCounts: Record<string, number> = {};
   let minDate = '';
@@ -68,7 +72,8 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({ isOpen, 
   const handleClose = useCallback(() => { reset(); onClose(); }, [reset, onClose]);
 
   const processFile = useCallback((file: File) => {
-    if (!file.name.endsWith('.json')) { setUploadState('error'); setErrorMsg('Please upload a .json file.'); return; }
+    if (!file.name.toLowerCase().endsWith('.json')) { setUploadState('error'); setErrorMsg('Please upload a .json file.'); return; }
+    if (file.size > MAX_FILE_BYTES) { setUploadState('error'); setErrorMsg('File is too large. Maximum supported size is 10 MB.'); return; }
     setFileName(file.name);
     setUploadState('parsing');
     const reader = new FileReader();
@@ -108,6 +113,9 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({ isOpen, 
         >
           <div className="absolute inset-0 bg-[#07070a]/90 backdrop-blur-xl" />
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dataset-upload-title"
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.93, y: 20 }}
@@ -125,11 +133,11 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({ isOpen, 
                   <Upload size={16} className="text-purple-400" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-white tracking-tight">Upload Dataset</h2>
+                  <h2 id="dataset-upload-title" className="text-sm font-semibold text-white tracking-tight">Upload Dataset</h2>
                   <p className="text-xs text-zinc-500 mt-0.5">Load your own life receipts JSON</p>
                 </div>
               </div>
-              <button onClick={handleClose} className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-colors cursor-pointer">
+              <button type="button" onClick={handleClose} aria-label="Close dataset upload" className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-colors cursor-pointer">
                 <X size={15} />
               </button>
             </div>
@@ -143,6 +151,10 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({ isOpen, 
                       onDragOver={(e) => { e.preventDefault(); setUploadState('dragging'); }}
                       onDragLeave={() => setUploadState('idle')}
                       onClick={() => fileInputRef.current?.click()}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Choose a JSON dataset to upload"
                       className={`relative flex flex-col items-center justify-center gap-4 py-12 px-6 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-300 ${
                         uploadState === 'dragging' ? 'animate-dropzone-pulse' : 'border-white/10 hover:border-white/20 hover:bg-white/[0.02]'
                       }`}
