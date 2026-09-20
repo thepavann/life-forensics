@@ -1,5 +1,5 @@
 // src/lib/analyzer/index.ts
-import type { RawReceipt, NormalizedReceipt, Connection, Chapter, Discovery, LifeStatistics, ForensicsDataset } from '../../types/receipt';
+import type { RawReceipt, NormalizedReceipt, Connection, Chapter, ForensicsDataset } from '../../types/receipt';
 import { normalizeAllReceipts } from './normalizer';
 import { computeConnections } from './connections';
 import { discoverChapters } from './chapters';
