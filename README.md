@@ -940,13 +940,3 @@ https://docs.google.com/presentation/d/1Ulm9bPFalnHYS5IgII5rAPlVelsiVCSkAJUEGGhQ
 
 ---
 
-### GitHub final step
-
-After replacing your current `README.md`, run:
-
-```bash
-git add README.md
-git commit -m "Add professional project documentation"
-git push
-```
-
