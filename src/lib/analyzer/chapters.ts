@@ -48,9 +48,11 @@ export function discoverChapters(receipts: NormalizedReceipt[]): Chapter[] {
     matchedReceipts.forEach(r => {
       const source = String(r.metadata?.source || 'Imported records');
       sourceCounts.set(source, (sourceCounts.get(source) || 0) + 1);
-      r.chapterId = `year-${year}`;
-      r.chapterTitle = `The ${year} Record`;
     });
+
+    const chapterId = `year-${year}`;
+    const chapterTitle = `The ${year} Record`;
+    const chapterReceipts = matchedReceipts.map(r => ({ ...r, chapterId, chapterTitle }));
 
     const sourceSummary = Array.from(sourceCounts.entries())
       .sort((a, b) => b[1] - a[1])
@@ -59,9 +61,9 @@ export function discoverChapters(receipts: NormalizedReceipt[]): Chapter[] {
       .join(' · ');
 
     chapters.push({
-      id: `year-${year}`,
+      id: chapterId,
       number: String(idx + 1).padStart(2, '0'),
-      title: `The ${year} Record`,
+      title: chapterTitle,
       subtitle: `${matchedReceipts.length.toLocaleString()} signals · ${dominantType} dominant`,
       startDate: start.toISOString(),
       endDate: end.toISOString(),
@@ -70,7 +72,7 @@ export function discoverChapters(receipts: NormalizedReceipt[]): Chapter[] {
       typeCounts,
       keyPlaces: Array.from(places).slice(0, 4),
       keyEntities: topEntityNames,
-      receipts: matchedReceipts,
+      receipts: chapterReceipts,
       sequenceFlow,
       narrative: `The ${year} archive contains ${matchedReceipts.length.toLocaleString()} recorded signals. Primary sources: ${sourceSummary || 'Imported records'}.`
     });
