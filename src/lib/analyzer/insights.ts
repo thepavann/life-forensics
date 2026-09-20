@@ -1,3 +1,5 @@
+import type { Connection, Discovery, NormalizedReceipt } from '../../types/receipt';
+
 export function discoverPatterns(
   receipts: NormalizedReceipt[],
   connections: Connection[]
