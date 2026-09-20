@@ -84,7 +84,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center space-x-2">
           {/* Find Something I Missed Action */}
           <button
+            type="button"
             onClick={onFindMissed}
+            aria-label="Find something I missed"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/90 text-xs font-medium text-amber-300 hover:text-amber-200 transition-all cursor-pointer"
             title="Find an unexpected connection"
           >
@@ -95,7 +97,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Quick Search Button */}
           <button
+            type="button"
             onClick={onOpenSearch}
+            aria-label="Search receipts"
             className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800/80 text-xs text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
             title="Search receipts (Press /)"
           >
@@ -151,6 +155,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{tab.label}</span>
             </button>
           ))}
+          <button
+            type="button"
+            onClick={() => {
+              onUploadDataset();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
+            aria-label="Upload a JSON dataset"
+          >
+            <Upload size={15} />
+            <span>Upload Dataset</span>
+          </button>
           <div className="pt-2 border-t border-zinc-800/60 flex items-center justify-between text-xs text-zinc-400 px-3 py-1">
             <span>Status:</span>
             <span className="text-emerald-400 font-mono">{receiptCount} receipts analyzed</span>
