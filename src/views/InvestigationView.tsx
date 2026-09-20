@@ -5,7 +5,7 @@ import type { ForensicsDataset } from '../lib/analyzer';
 interface InvestigationViewProps { data: ForensicsDataset; onSelectReceipt: (id: string) => void; }
 
 export const InvestigationView: React.FC<InvestigationViewProps> = ({ data, onSelectReceipt }) => {
-  const { statistics, discoveries, receipts } = data;
+  const { statistics, discoveries } = data;
   const [query, setQuery] = useState('');
   const maxHour = Math.max(...statistics.hourlyCounts.map(x => x.count), 1);
   const maxMonth = Math.max(...statistics.monthlyCounts.map(x => x.count), 1);
