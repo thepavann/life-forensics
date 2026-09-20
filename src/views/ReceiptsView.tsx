@@ -284,7 +284,7 @@ export const ReceiptsView: React.FC<ReceiptsViewProps> = ({
                     <ArrowRight size={13} className="text-zinc-600 group-hover:text-white transition-colors" />
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
