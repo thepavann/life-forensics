@@ -113,6 +113,30 @@ export interface LifeStatistics {
   sourceFraudLabels: number;
 }
 
+export interface PersonalBaselineSummary {
+  historical: {
+    start: string;
+    end: string;
+    activeDays: number;
+    totalSignals: number;
+    dailyAverage: number;
+    peakStartHour: number;
+    peakEndHour: number;
+  };
+  recent: {
+    start: string;
+    end: string;
+    activeDays: number;
+    totalSignals: number;
+    dailyAverage: number;
+    peakStartHour: number;
+    peakEndHour: number;
+  };
+  deviationPercent: number;
+  status: 'stable' | 'elevated' | 'reduced';
+  evidenceDays: number;
+}
+
 export interface ForensicsDataset {
   raw: RawReceipt[];
   receipts: NormalizedReceipt[];
@@ -123,4 +147,5 @@ export interface ForensicsDataset {
   chapterMap: Map<string, Chapter>;
   discoveries: Discovery[];
   statistics: LifeStatistics;
+  baseline: PersonalBaselineSummary | null;
 }
