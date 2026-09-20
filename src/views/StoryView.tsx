@@ -15,7 +15,7 @@ import { ReceiptIcon, getTypeBadgeClass } from '../components/ReceiptIcon';
 interface StoryViewProps {
   data: ForensicsDataset;
   onSelectReceipt: (id: string) => void;
-  onOpenChapter: (chapterId: string) => void;
+  onOpenChapter?: (chapterId: string) => void;
   onOpenAtlasWithFocus?: (receiptIds: string[]) => void;
   onFindMissed: () => void;
   onSwitchTab: (tab: 'story' | 'atlas' | 'chapters' | 'receipts' | 'investigation') => void;
