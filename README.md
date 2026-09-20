@@ -135,7 +135,7 @@ Examples:
 * What activity differs from the historical baseline?
 * What evidence supports a discovery?
 
-The objective is to connect investigation questions with measurable evidence.
+The objective is to connect investigation questions with measurable evidence. Quick questions are backed by a deterministic query engine; free-text input falls back to normalized-record search.
 
 ---
 
@@ -455,9 +455,9 @@ Collect the data supporting each discovery.
 
 Calculate the strength of the implemented evidence model.
 
-### 10. Presentation
+### 10. Query & Presentation
 
-Expose findings through the investigation interface.
+The deterministic investigation query engine maps questions such as change-over-time, unusual activity, source overlap and archive overview to measurable evidence. Findings are then exposed through the investigation interface.
 
 ---
 
@@ -548,7 +548,8 @@ Expose findings through the investigation interface.
 * npm
 * Git
 * GitHub
-* ESLint
+* **oxlint**
+* TypeScript strict build checks
 
 ---
 
@@ -560,9 +561,14 @@ life-forensics/
 ├── public/
 │
 ├── scripts/
-│   └── verify_app.js
+│   ├── verify_app.js
+│   └── test_app.js
 │
 ├── src/
+│   ├── app/
+│   │   └── AppShell.tsx
+│   ├── hooks/
+│   │   └── useForensicsData.ts
 │   ├── components/
 │   │
 │   ├── views/
@@ -636,6 +642,8 @@ Run:
 
 ```bash
 npm run verify
+npm run test
+npm run build
 ```
 
 Expected output:
