@@ -914,10 +914,7 @@ The platform focuses on **explainable reconstruction rather than visualization a
 
 **Team Members**
 
-* **Pavan Tungala** — [Role]
-* **[Member Name]** — [Role]
-* **[Member Name]** — [Role]
-* **[Member Name]** — [Role]
+* **Pavan Tungala** 
 
 ---
 
@@ -930,19 +927,10 @@ The platform focuses on **explainable reconstruction rather than visualization a
 *Add video URL*
 
 **Presentation:**
-*Add presentation URL if required*
+https://docs.google.com/presentation/d/1Ulm9bPFalnHYS5IgII5rAPlVelsiVCSkAJUEGGhQQKw/edit?usp=sharing
 
 ---
 
-# 📄 License
-
-This project was developed as a hackathon prototype.
-
-Add the license required by your hackathon or team before public release.
-
----
-
-<div align="center">
 
 ### LIFE//FORENSICS
 
