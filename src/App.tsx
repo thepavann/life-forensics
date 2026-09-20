@@ -1,7 +1,7 @@
 // src/App.tsx
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { getForensicsData } from './lib/analyzer';
+import { getForensicsData, type ForensicsDataset } from './lib/analyzer';
 import { Navbar, type ActiveTab } from './components/Navbar';
 import { EntryHeroModal } from './components/EntryHeroModal';
 import { ReceiptDetailModal } from './components/ReceiptDetailModal';
@@ -15,7 +15,16 @@ import { ReceiptsView } from './views/ReceiptsView';
 import { InvestigationView } from './views/InvestigationView';
 
 export function App() {
-  const data = useMemo(() => getForensicsData(), []);
+  const [data, setData] = useState<ForensicsDataset | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    getForensicsData()
+      .then(dataset => { if (mounted) setData(dataset); })
+      .catch(() => { if (mounted) setLoadError('The forensic dataset could not be loaded. Please refresh and try again.'); });
+    return () => { mounted = false; };
+  }, []);
 
   const [activeTab, setActiveTab] = useState<ActiveTab>('story');
   const [selectedReceiptId, setSelectedReceiptId] = useState<string | null>(null);
@@ -89,6 +98,21 @@ export function App() {
     }
     handleTabChange('atlas');
   };
+
+  if (!data) {
+    return (
+      <div className="min-h-screen bg-[#09090b] text-zinc-100 flex items-center justify-center px-6" role="status" aria-live="polite">
+        <div className="max-w-md text-center">
+          <div className="mx-auto mb-5 w-12 h-12 rounded-2xl border border-zinc-700 bg-zinc-900 flex items-center justify-center">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+          </div>
+          <h1 className="text-lg font-semibold">LIFE//FORENSICS</h1>
+          <p className="mt-2 text-sm text-zinc-400">{loadError || 'Loading the evidence layer…'}</p>
+          {loadError && <button type="button" onClick={() => window.location.reload()} className="mt-5 px-4 py-2 rounded-lg bg-white text-zinc-950 text-sm font-medium">Reload</button>}
+        </div>
+      </div>
+    );
+  }
 
   const selectedReceipt = selectedReceiptId ? data.receiptMap.get(selectedReceiptId) || null : null;
 
