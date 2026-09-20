@@ -1,0 +1,75 @@
+{
+  "name": "LIFE//FORENSICS Real Dataset Fusion",
+  "generated_from": [
+    {
+      "file": "Daily Household Transactions.csv",
+      "rows": 2461,
+      "used_as": "household financial receipts",
+      "fields_used": [
+        "Date",
+        "Mode",
+        "Category",
+        "Subcategory",
+        "Note",
+        "Amount",
+        "Income/Expense",
+        "Currency"
+      ]
+    },
+    {
+      "file": "Augmented_IndiaTransactMultiFacet2024.csv",
+      "rows": 10267,
+      "used_as": "transaction receipts",
+      "fields_used": [
+        "trans_id",
+        "trans_date_trans_time",
+        "merchant",
+        "category",
+        "amt",
+        "city",
+        "state",
+        "is_fraud"
+      ]
+    },
+    {
+      "file": "spotify_history.csv",
+      "rows": 149860,
+      "used_as": "music receipts; top 3 artists per day retained as daily forensic summaries",
+      "fields_used": [
+        "ts",
+        "track_name",
+        "artist_name",
+        "ms_played"
+      ]
+    }
+  ],
+  "output_receipts": 18133,
+  "privacy": {
+    "excluded_fields": [
+      "cc_num",
+      "first",
+      "last",
+      "gender",
+      "street",
+      "dob",
+      "customer_id",
+      "lat",
+      "long",
+      "merch_lat",
+      "merch_long"
+    ],
+    "note": "Personally identifying/payment fields are not shipped to the frontend."
+  },
+  "spotify_reduction": "Daily artist summaries: top 3 artists per day by play count; each record retains a sample track and aggregate play count.",
+  "generated_at": "2026-09-20",
+  "output_breakdown": {
+    "spotify_history": 7413,
+    "Augmented_IndiaTransactMultiFacet2024": 9417,
+    "Daily Household Transactions": 1303
+  },
+  "invalid_or_missing_timestamp_rows": {
+    "Augmented_IndiaTransactMultiFacet2024": 850,
+    "Daily Household Transactions": 1158,
+    "spotify_history": 0
+  }
+}
