@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getForensicsData, type ForensicsDataset } from '../lib/analyzer';
-import type { RawReceipt } from '../types/receipt';
+import { getForensicsData } from '../lib/analyzer';
+import type { RawReceipt, ForensicsDataset } from '../types/receipt';
 
 export interface ForensicsDataState {
   data: ForensicsDataset | null;
