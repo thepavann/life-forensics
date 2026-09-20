@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx
 import React, { useState } from 'react';
-import { Sparkles, Search, Compass, BookOpen, Layers, GitFork, Menu, X, BrainCircuit } from 'lucide-react';
+import { Sparkles, Search, Compass, BookOpen, Layers, GitFork, Menu, X, BrainCircuit, Upload } from 'lucide-react';
 
 export type ActiveTab = 'story' | 'atlas' | 'chapters' | 'receipts' | 'investigation';
 
@@ -9,6 +9,7 @@ interface NavbarProps {
   onTabChange: (tab: ActiveTab) => void;
   onFindMissed: () => void;
   onOpenSearch: () => void;
+  onUploadDataset: () => void;
   receiptCount: number;
 }
 
@@ -17,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onTabChange,
   onFindMissed,
   onOpenSearch,
+  onUploadDataset,
   receiptCount
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -101,6 +103,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-zinc-400 bg-zinc-800 rounded border border-zinc-700/60">
               /
             </kbd>
+          </button>
+
+          {/* Dataset import */}
+          <button
+            type="button"
+            onClick={onUploadDataset}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800/80 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer"
+            title="Upload a JSON dataset"
+            aria-label="Upload a JSON dataset"
+          >
+            <Upload size={14} />
+            <span>Upload</span>
           </button>
 
           {/* Mobile Menu Trigger */}
