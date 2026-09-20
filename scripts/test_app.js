@@ -19,6 +19,7 @@ for (const field of ['cc_num', 'customer_id', 'dob', 'merch_lat', 'merch_long', 
   assert.ok(normalizer.includes(field), 'Privacy denylist is missing: ' + field);
 }
 assert.ok(normalizer.includes('sanitizeMetadata'), 'Metadata sanitization must be enforced during normalization.');
+assert.ok(normalizer.includes('sanitizeRawReceipt'), 'Stored raw records must be sanitized.');
 
 const uploader = fs.readFileSync(path.join(root, 'src', 'components', 'DatasetUploadModal.tsx'), 'utf8');
 assert.ok(uploader.includes('MAX_FILE_BYTES'), 'Upload size limit is missing.');
@@ -34,6 +35,7 @@ assert.ok(shell.includes('Suspense'), 'Lazy view fallback is missing.');
 assert.ok(shell.includes('DatasetUploadModal'), 'Dataset upload is not integrated into the app shell.');
 
 assert.ok(app.includes('ErrorBoundary'), 'Root error boundary is missing.');
+assert.ok(shell.includes('onUploadDataset'), 'Dataset upload action must be wired into navigation.');
 
 const analyzer = fs.readFileSync(path.join(root, 'src', 'lib', 'analyzer', 'index.ts'), 'utf8');
 assert.ok(analyzer.includes("import('../../data/raw_receipts.json')"), 'Production dataset should be lazy-loaded.');
