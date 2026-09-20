@@ -20,7 +20,7 @@ export function discoverPatterns(
   });
 
   const confidenceLabel = (score: number) => score >= 90 ? 'HIGH' : score >= 75 ? 'MEDIUM' : 'LOW';
-  const add = (d: Discovery, score: number) => {
+  const add = (d: Omit<Discovery, 'confidence' | 'confidenceLabel'>, score: number) => {
     d.confidence = Math.max(1, Math.min(99, Math.round(score)));
     d.confidenceLabel = confidenceLabel(d.confidence);
     discoveries.push(d);
