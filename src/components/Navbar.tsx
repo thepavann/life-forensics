@@ -62,7 +62,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             return (
               <button
                 key={tab.id}
+                type="button"
                 onClick={() => onTabChange(tab.id)}
+                aria-current={isActive ? "page" : undefined}
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   isActive
                     ? 'bg-zinc-800 text-white shadow-sm border border-zinc-700/60'
@@ -103,7 +105,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Trigger */}
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="lf-mobile-navigation"
             className="md:hidden p-2 text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors"
             aria-label="Toggle navigation"
           >
@@ -114,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-zinc-800/80 bg-[#0d0d12] px-4 py-3 space-y-1 animate-slide-down">
+        <div id="lf-mobile-navigation" className="md:hidden border-t border-zinc-800/80 bg-[#0d0d12] px-4 py-3 space-y-1 animate-slide-down">
           {tabs.map(tab => (
             <button
               key={tab.id}
