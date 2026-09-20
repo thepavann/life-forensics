@@ -381,9 +381,19 @@ export const AtlasView: React.FC<AtlasViewProps> = ({
                 <g
                   key={r.id}
                   transform={`translate(${pos.x}, ${pos.y})`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={'Open receipt node ' + r.title}
                   onClick={e => {
                     e.stopPropagation();
                     onSelectReceipt(r.id);
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onSelectReceipt(r.id);
+                    }
                   }}
                   onMouseEnter={() => setHoveredNodeId(r.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
