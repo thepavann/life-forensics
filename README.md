@@ -942,6 +942,26 @@ The platform focuses on **explainable reconstruction rather than visualization a
 
 ---
 
+# Documentation
+
+The project documentation is organized for developers, contributors, and hackathon reviewers.
+
+| Document | Purpose |
+|---|---|
+| [Contributing](CONTRIBUTING.md) | Development and contribution guidelines |
+| [Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
+| [Security](SECURITY.md) | Security and vulnerability reporting |
+| [Privacy](PRIVACY.md) | Privacy model and data-minimization principles |
+| [Changelog](CHANGELOG.md) | Project changes and roadmap history |
+| [Architecture](docs/ARCHITECTURE.md) | System architecture and design layers |
+| [Data Pipeline](docs/DATA_PIPELINE.md) | Ingestion, normalization, correlation and analysis flow |
+| [Data Dictionary](docs/DATA_DICTIONARY.md) | Normalized data model and field definitions |
+| [Methodology](docs/METHODOLOGY.md) | Pattern, anomaly, baseline and confidence methodology |
+| [Deployment](docs/DEPLOYMENT.md) | Local setup, builds and deployment guidance |
+| [Demo Guide](docs/DEMO.md) | Recommended hackathon and portfolio demonstration flow |
+
+---
+
 # 👥 Team
 
 ### LIFE//FORENSICS
